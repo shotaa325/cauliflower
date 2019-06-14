@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>主要成績野手ver</title>
+</head>
+<body>
+<h1>本日の試合成績</h1>
+<form method="get" th:action="@{/form}">
+    <table>
+        <thead>
+        <tr>
+            <th>選手番号</th>
+            <th>一打席目</th>
+            <th>二打席目</th>
+            <th>三打席目</th>
+            <th>四打席目</th>
+            <th>五打席目</th>
+            <th>六打席目</th>
+            <th>合計打点</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <input type="text" name="playerId" placeholder="選手番号"/>
+            </td>
+            <td>
+                <select name="one">
+                    <option name="noThing" value="なし">なし</option>
+                    <option name="single" value="単打">単打</option>
+                    <option name="double" value="二塁打">二塁打</option>
+                    <option name="triple" value="三塁打">三塁打</option>
+                    <option name="homeRun" value="本塁打">本塁打</option>
+                    <option name="bunt" value="犠打">犠打</option>
+                    <option name="sacrificeFly" value="犠飛">犠飛</option>
+                    <option name="baseOnBalls" value="四球">四球</option>
+                    <option name="hitByPitch" value="死球">死球</option>
+                    <option name="strikeOut" value="三振">三振</option>
+                    <option name="others" value="それ以外のアウト">それ以外のアウト</option>
+                </select>
+            </td>
+            <td>
+                <select name="two">
+                    <option name="noThing" value="なし">なし</option>
+                    <option name="single" value="単打">単打</option>
+                    <option name="double" value="二塁打">二塁打</option>
+                    <option name="triple" value="三塁打">三塁打</option>
+                    <option name="homeRun" value="本塁打">本塁打</option>
+                    <option name="bunt" value="犠打">犠打</option>
+                    <option name="sacrificeFly" value="犠飛">犠飛</option>
+                    <option name="baseOnBalls" value="四球">四球</option>
+                    <option name="hitByPitch" value="死球">死球</option>
+                    <option name="strikeOut" value="三振">三振</option>
+                    <option name="others" value="それ以外のアウト">それ以外のアウト</option>
+                </select>
+            </td>
+            <td>
+                <select name="three">
+                    <option name="noThing" value="なし">なし</option>
+                    <option name="single" value="単打">単打</option>
+                    <option name="double" value="二塁打">二塁打</option>
+                    <option name="triple" value="三塁打">三塁打</option>
+                    <option name="homeRun" value="本塁打">本塁打</option>
+                    <option name="bunt" value="犠打">犠打</option>
+                    <option name="sacrificeFly" value="犠飛">犠飛</option>
+                    <option name="baseOnBalls" value="四球">四球</option>
+                    <option name="hitByPitch" value="死球">死球</option>
+                    <option name="strikeOut" value="三振">三振</option>
+                    <option name="others" value="それ以外のアウト">それ以外のアウト</option>
+                </select>
+            </td>
+            <td>
+                <select name="four">
+                    <option name="noThing" value="なし">なし</option>
+                    <option name="single" value="単打">単打</option>
+                    <option name="double" value="二塁打">二塁打</option>
+                    <option name="triple" value="三塁打">三塁打</option>
+                    <option name="homeRun" value="本塁打">本塁打</option>
+                    <option name="bunt" value="犠打">犠打</option>
+                    <option name="sacrificeFly" value="犠飛">犠飛</option>
+                    <option name="baseOnBalls" value="四球">四球</option>
+                    <option name="hitByPitch" value="死球">死球</option>
+                    <option name="strikeOut" value="三振">三振</option>
+                    <option name="others" value="それ以外のアウト">それ以外のアウト</option>
+                </select>
+            </td>
+            <td>
+                <select name="five">
+                    <option name="noThing" value="なし">なし</option>
+                    <option name="single" value="単打">単打</option>
+                    <option name="double" value="二塁打">二塁打</option>
+                    <option name="triple" value="三塁打">三塁打</option>
+                    <option name="homeRun" value="本塁打">本塁打</option>
+                    <option name="bunt" value="犠打">犠打</option>
+                    <option name="sacrificeFly" value="犠飛">犠飛</option>
+                    <option name="baseOnBalls" value="四球">四球</option>
+                    <option name="hitByPitch" value="死球">死球</option>
+                    <option name="strikeOut" value="三振">三振</option>
+                    <option name="others" value="それ以外のアウト">それ以外のアウト</option>
+                </select>
+            </td>
+            <td>
+                <select name="six">
+                    <option name="noThing" value="なし">なし</option>
+                    <option name="single" value="単打">単打</option>
+                    <option name="double" value="二塁打">二塁打</option>
+                    <option name="triple" value="三塁打">三塁打</option>
+                    <option name="homeRun" value="本塁打">本塁打</option>
+                    <option name="bunt" value="犠打">犠打</option>
+                    <option name="sacrificeFly" value="犠飛">犠飛</option>
+                    <option name="baseOnBalls" value="四球">四球</option>
+                    <option name="hitByPitch" value="死球">死球</option>
+                    <option name="strikeOut" value="三振">三振</option>
+                    <option name="others" value="それ以外のアウト">それ以外のアウト</option>
+                </select>
+            </td>
+            <td>
+                <input type="text" name="runBattedIn" placeholder="打点"/>
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+    <button type="submit" class="button">登録</button>
+</form>
+</body>
+</html>

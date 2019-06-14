@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>主要成績野手ver</title>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th>背番号</th>
+        <th>選手名</th>
+        <th>試合</th>
+        <th>安打数</th>
+        <th>打率</th>
+        <th>本塁打</th>
+        <th>OPS</th>
+    </tr>
+
+    </thead>
+    <tbody>
+    <tr>
+        <td>
+            <span th:text="${num}">背番号</span>
+        </td>
+        <td>
+            <span th:text="${playerName}">選手名</span>
+        </td>
+        <td>
+            <span th:text="${gameNum}">試合数</span>
+        </td>
+        <td>
+            <span th:text="${hit}">安打数</span>
+        </td>
+        <td>
+        </td>
+        <td>
+            <span th:text="${homeRun}">本塁打</span>
+        </td>
+    </tr>
+    </tbody>
+
+</table>
+<button type="submit" onclick="location.href='./input-batter.html'" class="button">成績登録</button>
+</body>
+</html>

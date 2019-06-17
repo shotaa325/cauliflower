@@ -73,16 +73,16 @@ public class MainController {
                 "INSERT INTO result(match_date, player_id, run_batted_in) " +
                         "VALUES(?, ?, ?);", matchDate, playerId, runBattedIn);
 
-        int singleHit;
-        int doubleHit;
-        int tripleHit;
-        int homeRun;
-        int bunt;
-        int sacrificeFry;
-        int baseOnBall;
-        int hitByPitch;
-        int strikeOut;
-        int others;
+//        int singleHit;
+//        int doubleHit;
+//        int tripleHit;
+//        int homeRun;
+//        int bunt;
+//        int sacrificeFry;
+//        int baseOnBall;
+//        int hitByPitch;
+//        int strikeOut;
+//        int others;
         //int plate_appearance_time;
 
 
@@ -91,11 +91,18 @@ public class MainController {
 //                hit++;
 //            }
 //        }
-
+        //  背番号
         Object num = jdbc.queryForMap("SELECT num FROM player WHERE num =VALUES(?) ", playerId).get("num");
+
+        //背番号表示
         model.addAttribute("num", num);
+
+        //安打数表示
         model.addAttribute("hit",jdbc.queryForMap("SELECT COUNT(plate_appearance) AS hit  FROM result WHERE plate_appearance IN ('単打', '二塁打', '三塁打', '本塁打')  AND player_id = VALUES(?);",num).get("hit"));
+
+        //本塁打数表示
         model.addAttribute("homeRun",jdbc.queryForMap("SELECT COUNT(plate_appearance) AS homeRun  FROM result WHERE plate_appearance = '本塁打'  AND player_id = VALUES(?);", num) .get("homeRun"));
+
         jdbc.queryForMap("SELECT COUNT(plate_appearance) AS hit  FROM result WHERE plate_appearance IN ('単打', '二塁打', '三塁打', '本塁打')  AND player_id = 3;");
 
         //試合数表示
@@ -103,13 +110,58 @@ public class MainController {
         //名前表示
         model.addAttribute("playerName",jdbc.queryForMap("select name AS playerName from player where num = VALUES(?);",num).get("playerName"));
 
-        //int  atBat  = intValue(jdbc.queryForMap("select count(at_bat_times) from result where plate_appearance not in ('死球','四球','犠打','犠飛') AND player_id = ?;", num).get("count(at_bat_times)"));
-//        Map<String, Object> atBata  = jdbc.queryForMap("select count(at_bat_times) from result where plate_appearance not in ('死球','四球','犠打','犠飛') AND player_id = ?;", num).get(0);
-        //Object hit = jdbc.queryForMap("SELECT COUNT(plate_appearance) AS hit  FROM result WHERE plate_appearance IN ('単打', '二塁打', '三塁打', '本塁打')  AND player_id = VALUES(?);",num).get("hit");
-       // System.out.println(atBat);
+        //打数
+        double  atBat  = jdbc.queryForObject("select count(at_bat_times) from result where plate_appearance not in ('死球','四球','犠打','犠飛') AND player_id = ?;", Integer.class, num);
+        System.out.println(atBat);
 
-       // Object battingAverage = hit / atBat;
-      //  System.out.println(battingAverage);
+        //安打数
+        double  hit = jdbc.queryForObject("SELECT COUNT(plate_appearance) AS hit  FROM result WHERE plate_appearance IN ('単打', '二塁打', '三塁打', '本塁打')  AND player_id = VALUES(?);",Integer.class,num);
+        System.out.println(hit);
+
+        //四球数
+        double baseOnBall = jdbc.queryForObject("select count(at_bat_times) from result where plate_appearance in ('四球') AND player_id = ?;", Integer.class, num);
+
+        //死球数
+        double hitByPitch = jdbc.queryForObject("select count(at_bat_times) from result where plate_appearance in ('死球') AND player_id = ?;", Integer.class, num);
+
+        //犠飛数
+        double sacrificeFly = jdbc.queryForObject("select count(at_bat_times) from result where plate_appearance in ('犠飛') AND player_id = ?;", Integer.class, num);
+
+        //二塁打数
+        double doubleHit = jdbc.queryForObject("select count(at_bat_times) from result where plate_appearance in ('二塁打') AND player_id = ?;", Integer.class, num);
+
+        //三塁打数
+        double tripleHit = jdbc.queryForObject("select count(at_bat_times) from result where plate_appearance in ('三塁打') AND player_id = ?;", Integer.class, num);
+
+        //本塁打数
+        double homeRun = jdbc.queryForObject("select count(at_bat_times) from result where plate_appearance in ('本塁打') AND player_id = ?;", Integer.class, num);
+
+        //打率計算
+        double battingAverage = hit / atBat;
+        System.out.println(battingAverage);
+        model.addAttribute("battingAverage", battingAverage);
+
+        //出塁率計算
+        double onBasePercentage = (hit + baseOnBall + hitByPitch) / (atBat + baseOnBall + hitByPitch);
+
+        //塁打数
+        double totalBases = (hit * 1) + (doubleHit * 1) + (tripleHit * 2) + (homeRun * 3);
+
+        //長打率計算
+        double sluggingPercentage = totalBases / atBat;
+
+        //OPS計算
+        double onBasePlusSlugging = onBasePercentage + sluggingPercentage;
+        if(onBasePlusSlugging >= 1) {
+            model.addAttribute("onBasePlusSlugging", onBasePlusSlugging);
+        }else{
+            double onBasePlusSlugging2 = onBasePlusSlugging;
+            model.addAttribute("onBasePlusSlugging2", onBasePlusSlugging2);
+            System.out.println(onBasePlusSlugging2);
+        }
+
+
+
 
         System.out.println(jdbc.queryForMap("SELECT num FROM player WHERE num =VALUES(?) ", playerId));
 //        System.out.println(hit);

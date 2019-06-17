@@ -11,7 +11,6 @@
         <th>背番号</th>
         <th>選手名</th>
         <th>試合</th>
-        <th>安打数</th>
         <th>打率</th>
         <th>本塁打</th>
         <th>OPS</th>
@@ -21,21 +20,27 @@
     <tbody>
     <tr>
         <td>
-            <span th:text="${num}">背番号</span>
+            <span th:text="${num}">55</span>
         </td>
         <td>
-            <span th:text="${playerName}">選手名</span>
+            <span th:text="${playerName}">松井秀喜</span>
         </td>
         <td>
-            <span th:text="${gameNum}">試合数</span>
+            <span th:text="${gameNum}">144</span>
         </td>
         <td>
-            <span th:text="${hit}">安打数</span>
+            <span th:text="${#numbers.formatDecimal(battingAverage, 0, 3)}">.330</span>
         </td>
         <td>
+            <span th:text="${homeRun}">50</span>
         </td>
         <td>
-            <span th:text="${homeRun}">本塁打</span>
+                <span th:if="${onBasePlusSlugging != null}">
+                    <span th:text="${#numbers.formatDecimal(onBasePlusSlugging, 1, 3)}">1.092</span>
+                </span>
+                <span th:if="${onBasePlusSlugging2 != null}">
+                    <span th:text="${#numbers.formatDecimal(onBasePlusSlugging2, 0, 3)}">.852</span>
+                </span>
         </td>
     </tr>
     </tbody>

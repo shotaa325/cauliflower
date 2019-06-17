@@ -42,3 +42,15 @@ INSERT INTO batting_contents(contents_name, total_bases, times_on_base) VALUES
     ('犠打', 0, 'FALSE'),
     ('犠飛', 0, 'FALSE'),
     ('それ以外', 0, 'FALSE');
+
+INSERT INTO position(name) values
+    ('投手'),
+    ('捕手'),
+    ('一塁手'),
+    ('二塁手'),
+    ('三塁手'),
+    ('遊撃手'),
+    ('左翼手'),
+    ('中堅手'),
+    ('右翼手'),
+    ('指名打者');

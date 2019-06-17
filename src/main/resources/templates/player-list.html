@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>選手一覧</title>
+</head>
+<body>
+<form method="get" th:action="@{/playerList}">
+    <table>
+        <thead>
+        <tr>
+            <th>背番号</th>
+            <th>選手名</th>
+            <th>ポジション</th>
+            <th>チーム</th>
+
+        </tr>
+
+        </thead>
+        <tbody>
+        <div th:each="playerList:${playerList}">
+            <tr>
+                <td>
+                    <span th:text="${playerList.num}">背番号</span>
+                </td>
+                <td>
+                    <a th:href="${playerList.link}" th:text="${playerList.name}">選手名</a>
+                </td>
+                <td>
+                    <span th:text="${playerList.position}">ポジション</span>
+                </td>
+                <td>
+                    <span th:text="${playerList.team}">チーム</span>
+                </td>
+            </tr>
+        </div>
+        </tbody>
+
+    </table>
+    <button type="submit" onclick="location.href='./main-record-batter'" class="button">成績登録</button>
+</form>
+</body>
+</html>

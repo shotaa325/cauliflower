@@ -66,3 +66,8 @@ CREATE TABLE batting_contents (
     total_bases INT, --塁打
     times_on_base boolean --出塁の可否
 );
+
+CREATE TABLE position(
+    id INT AUTO_INCREMENT,
+    name VARCHAR
+);

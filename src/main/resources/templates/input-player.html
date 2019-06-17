@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>選手登録</title>
+</head>
+<h1>選手登録</h1>
+
+<form method="post" th:action="@{/inputPlayer}">
+<table>
+    <thead>
+    <tr>
+        <th>チーム名</th>
+        <th>背番号</th>
+        <th>選手名</th>
+        <th>ポジション</th>
+    </tr>
+    </thead>
+        <td>
+            <input type="text" name="team" placeholder="チーム名" />
+        </td>
+        <td>
+            <input type="text" name="num" placeholder="背番号" />
+        </td>
+        <td>
+            <input type="text" name="name" placeholder="名前" />
+        </td>
+        <td>
+            <select name="position">
+                <option name="pitcher" value="投手">投手</option>
+                <option name="catcher" value="捕手">捕手</option>
+                <option name="first-baseman" value="一塁手">一塁手</option>
+                <option name="second-baseman" value="二塁手">二塁手</option>
+                <option name="third-baseman" value="三塁手">三塁手</option>
+                <option name="short-stop" value="遊撃手">遊撃手</option>
+                <option name="left-fielder" value="左翼手">左翼手</option>
+                <option name="center-fielder" value="中堅手">中堅手</option>
+                <option name="right-fielder" value="右翼手">右翼手</option>
+                <option name="designated-hitter" value="指名打者">指名打者</option>
+            </select>
+        </td>
+</table>
+    <button type="submit" class="button">登録</button>
+</form>
+</body>
+</html>

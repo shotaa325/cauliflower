@@ -13,6 +13,7 @@
         <th>試合</th>
         <th>打率</th>
         <th>本塁打</th>
+        <th>打点</th>
         <th>OPS</th>
     </tr>
 
@@ -33,6 +34,9 @@
         </td>
         <td>
             <span th:text="${homeRun}">50</span>
+        </td>
+        <td>
+            <span th:text="${runBattedIn}">120</span>
         </td>
         <td>
                 <span th:if="${onBasePlusSlugging != null}">

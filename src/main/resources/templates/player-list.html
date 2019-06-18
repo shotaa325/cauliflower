@@ -5,7 +5,7 @@
     <title>選手一覧</title>
 </head>
 <body>
-<form method="get" th:action="@{/playerList}">
+<!--<form method="get" th:action="@{/player-list}"> &lt;!&ndash; ←{playerList}から変更0618.9:30 &ndash;&gt;-->
     <table>
         <thead>
         <tr>
@@ -13,7 +13,11 @@
             <th>選手名</th>
             <th>ポジション</th>
             <th>チーム</th>
-
+            <th>試合</th>
+            <th>打率</th>
+            <th>本塁打</th>
+            <th>打点</th>
+            <th>OPS</th>
         </tr>
 
         </thead>
@@ -21,10 +25,10 @@
         <div th:each="playerList:${playerList}">
             <tr>
                 <td>
-                    <span th:text="${playerList.num}">背番号</span>
+                    <span th:text="${playerList.num}">55</span>
                 </td>
                 <td>
-                    <a th:href="${playerList.link}" th:text="${playerList.name}">選手名</a>
+                    <a th:href="${playerList.link}" th:text="${playerList.name}">松井秀喜</a>
                 </td>
                 <td>
                     <span th:text="${playerList.position}">ポジション</span>
@@ -32,12 +36,33 @@
                 <td>
                     <span th:text="${playerList.team}">チーム</span>
                 </td>
+                <td>
+                    <span th:text="${playerList.countGame}">144</span>
+                </td>
+                </td>
+                <td>
+                    <span th:text="${#numbers.formatDecimal(playerList.battingAverage, 0, 3)}">.330</span>
+                </td>
+                <td>
+                    <span th:text="${playerList.homeRun}">50</span>
+                </td>
+                <td>
+                    <span th:text="${playerList.runBattedIn}">120</span>
+                </td>
+                <td>
+<!--                <span th:if="${playerList.onBasePercentagePlusSlugging != null}">-->
+                    <span th:text="${#numbers.formatDecimal(playerList.onBasePercentagePlusSlugging, 1, 3)}">1.092</span>
+<!--                </span>-->
+<!--                    <span th:if="${playerList.onBasePercentagePlusSlugging2 != null}">-->
+<!--                        <a th:href="${playerList.onBasePercentagePlusSlugging2}" th:text="${#numbers.formatDecimal(playerList.onBasePercentagePlusSlugging2, 0, 3)}">.852</a>-->
+<!--                </span>-->
+                </td>
             </tr>
         </div>
         </tbody>
 
     </table>
-    <button type="submit" onclick="location.href='./main-record-batter'" class="button">成績登録</button>
+    <button type="submit" onclick="location.href='./input-player'" class="button">選手登録</button>
 </form>
 </body>
 </html>

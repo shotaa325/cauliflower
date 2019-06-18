@@ -10,6 +10,7 @@
     <table>
         <thead>
         <tr>
+            <th>試合日</th>
             <th>選手番号</th>
             <th>一打席目</th>
             <th>二打席目</th>
@@ -22,6 +23,9 @@
         </thead>
         <tbody>
         <tr>
+            <td>
+                <input type="date" name="matchDate" placeholder="日付">
+            </td>
             <td>
                 <input type="text" name="playerId" placeholder="選手番号"/>
             </td>
@@ -116,7 +120,19 @@
                 </select>
             </td>
             <td>
-                <input type="text" name="runBattedIn" placeholder="打点"/>
+                <select name="runBattedIn">
+                    <option name="zero" value="0">0</option>
+                    <option name="one" value="1">1</option>
+                    <option name="two" value="2">2</option>
+                    <option name="three" value="3">3</option>
+                    <option name="four" value="4">4</option>
+                    <option name="five" value="5">5</option>
+                    <option name="six" value="6">6</option>
+                    <option name="seven" value="7">7</option>
+                    <option name="eight" value="8">8</option>
+                    <option name="nine" value="9">9</option>
+                    <option name="ten" value="10">10</option>
+                </select>
             </td>
         </tr>
         </tbody>

@@ -17,13 +17,16 @@
     </tr>
     </thead>
         <td>
-            <input type="text" name="team" placeholder="チーム名" />
+            <input type="text" name="team" minlength="1" maxlength="10" placeholder="チーム名" />
         </td>
         <td>
-            <input type="text" name="num" placeholder="背番号" />
+<!--            <input pattern="^[0-9A-Za-z]+$" type="text" name="num" placeholder="背番号" />-->
+<!--            <input type="tel" name="num" placeholder="背番号" maxlength="3" />-->
+<!--            <input type="number"  name="num" placeholder="背番号" pattern="^¥d+$" oninput="sliceMaxLength(this, 3)"&gt/>-->
+        <input type="number" name = "num" min="0"oninput="if(value.length>3 && value>=0)value=value.slice(0,3)" required/>
         </td>
         <td>
-            <input type="text" name="name" placeholder="名前" />
+            <input type="text" name="name" minlength="1" maxlength="10" placeholder="名前" required />
         </td>
         <td>
             <select name="position">

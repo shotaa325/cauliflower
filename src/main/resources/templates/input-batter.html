@@ -11,7 +11,7 @@
         <thead>
         <tr>
             <th>試合日</th>
-            <th>選手番号</th>
+            <th>選手名</th>
             <th>一打席目</th>
             <th>二打席目</th>
             <th>三打席目</th>
@@ -24,14 +24,15 @@
         <tbody>
         <tr>
             <td>
-                <input type="date" name="matchDate" placeholder="日付">
+                <input type="date" name="matchDate" placeholder="日付" required>
             </td>
             <td>
-                <input type="text" name="playerId" placeholder="選手番号"/>
+                <input type="hidden" name="playerId" th:value="${playerId}" >
+                <span th:text="${name}">松井 秀喜</span>
             </td>
             <td>
-                <select name="one">
-                    <option name="noThing" value="なし">なし</option>
+                <select name="one" required>
+                    <option name="" value="">なし</option>
                     <option name="single" value="単打">単打</option>
                     <option name="double" value="二塁打">二塁打</option>
                     <option name="triple" value="三塁打">三塁打</option>

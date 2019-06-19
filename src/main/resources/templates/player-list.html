@@ -2,10 +2,29 @@
 <html lang="ja" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>選手一覧</title>
+<!--    <link rel="stylesheet">-->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
 <body>
-<!--<form method="get" th:action="@{/player-list}"> &lt;!&ndash; ←{playerList}から変更0618.9:30 &ndash;&gt;-->
+<!--<script src="https://ssl24.net/js/formCheck.js" type="text/javascript"></script>-->
+<!--<script language="Javascript"></script>-->
+<script src="https://ssl24.net/js/formCheck.js" type="text/javascript"></script>
+<script language="javascript">
+		fld = new Array();
+		fld['check'] = "check_many";
+		reqcolor = "#ffe5f2";
+		encolor = "#ffffff";
+	</script>
+
+<form method="get" th:action="@{/delete}" onSubmit="return FormCheck(fld, reqcolor, encolor)">
+<!--<form method="get" th:action="@{/delete}" onsubmit="return check();">-->
+    <!-- ←"@{/delete}"から変更0619.9:30 -->
     <table>
         <thead>
         <tr>
@@ -41,28 +60,52 @@
                 </td>
                 </td>
                 <td>
+                    <span th:if="${playerList.battingAverage == null}">
+                        <span>-</span>
+                    </span>
+                    <span th:if="${playerList.battingAverage != null}">
                     <span th:text="${#numbers.formatDecimal(playerList.battingAverage, 0, 3)}">.330</span>
+                    </span>
                 </td>
                 <td>
+                    <span th:if="${playerList.homeRun} == null">
+                        <span>-</span>
+                    </span>
+                    <span th:if="${playerList.homeRun} != null">
                     <span th:text="${playerList.homeRun}">50</span>
+                    </span>
                 </td>
                 <td>
+                    <span th:if="${playerList.runBattedIn} == null">
+                        <span>-</span>
+                    </span>
                     <span th:text="${playerList.runBattedIn}">120</span>
                 </td>
                 <td>
-<!--                <span th:if="${playerList.onBasePercentagePlusSlugging != null}">-->
-                    <span th:text="${#numbers.formatDecimal(playerList.onBasePercentagePlusSlugging, 1, 3)}">1.092</span>
-<!--                </span>-->
-<!--                    <span th:if="${playerList.onBasePercentagePlusSlugging2 != null}">-->
-<!--                        <a th:href="${playerList.onBasePercentagePlusSlugging2}" th:text="${#numbers.formatDecimal(playerList.onBasePercentagePlusSlugging2, 0, 3)}">.852</a>-->
-<!--                </span>-->
+                    <span th:if="${playerList.nanJudge == null}">
+                        <span>-</span>
+                    </span>
+                    <span th:if="${playerList.onBasePercentagePlusSlugging != null}">
+                        <span th:text="${#numbers.formatDecimal(playerList.onBasePercentagePlusSlugging, 1, 3)}">1.092</span>
+                    </span>
+                    <span th:if="${playerList.onBasePercentagePlusSlugging2 != null}">
+                        <span th:text="${#numbers.formatDecimal(playerList.onBasePercentagePlusSlugging2, 0, 3)}">.893</span>
+                    </span>
+                </td>
+                <td>
+                    <input type="checkbox" name="check" th:value="${playerList.id}"/>
                 </td>
             </tr>
         </div>
         </tbody>
 
     </table>
-    <button type="submit" onclick="location.href='./input-player'" class="button">選手登録</button>
+<!--    <span th:text="${playerList.size}" >登録選手数</span>-->
+
+    <button th:if="${playerList.size() !=0}" type="submit" class="button">チェック済み削除</button>
 </form>
+<button type="submit" onclick="location.href='./input-player'" class="button">選手登録</button>
+<script
+        src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 </body>
 </html>

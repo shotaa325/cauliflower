@@ -1,61 +1,103 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<div class="p-3 mb-2 bg-light text-dark">
 <head>
-<!--    <meta charset="UTF-8">-->
+    <!--    <meta charset="UTF-8">-->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>選手登録</title>
 </head>
-    <img src="img/batting.png" width="160" height="100" class="img-thumbnail">
-    <div class="container bg-light">   <!--固定幅指定-->
-<h1>選手登録</h1>
-<form method="post" th:action="@{/inputPlayer}">
-<table>
-    <thead>
-    <tr>
-        <th>チーム名</th>
-        <th>背番号</th>
-        <th>選手名</th>
-        <th>ポジション</th>
-    </tr>
-    </thead>
-        <td>
-            <input type="text" name="team" minlength="1" maxlength="10" placeholder="チーム名" />
-        </td>
-        <td>
-<!--            <input pattern="^[0-9A-Za-z]+$" type="text" name="num" placeholder="背番号" />-->
-<!--            <input type="tel" name="num" placeholder="背番号" maxlength="3" />-->
-<!--            <input type="number"  name="num" placeholder="背番号" pattern="^¥d+$" oninput="sliceMaxLength(this, 3)"&gt/>-->
-        <input type="number" name = "num" min="0"oninput="if(value.length>3 && value>=0)value=value.slice(0,3)" required/>
-        </td>
-        <td>
-            <input type="text" name="name" minlength="1" maxlength="10" placeholder="名前" required />
-        </td>
-        <td>
-            <select name="position">
-                <option name="pitcher" value="投手">投手</option>
-                <option name="catcher" value="捕手">捕手</option>
-                <option name="first-baseman" value="一塁手">一塁手</option>
-                <option name="second-baseman" value="二塁手">二塁手</option>
-                <option name="third-baseman" value="三塁手">三塁手</option>
-                <option name="short-stop" value="遊撃手">遊撃手</option>
-                <option name="left-fielder" value="左翼手">左翼手</option>
-                <option name="center-fielder" value="中堅手">中堅手</option>
-                <option name="right-fielder" value="右翼手">右翼手</option>
-                <option name="designated-hitter" value="指名打者">指名打者</option>
-            </select>
-        </td>
-</table>
-    <button type="submit" class="btn btn-primary btn-lg">登録</button>
-</form>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-</body>
-    </div>
+<body>
+<div class="p-3 mb-2 bg-light text-dark">
+<div class="container m-auto" style="width: auto;">
+<!--    <img src="https://www.pakutaso.com/shared/img/thumb/DSCF9033_TP_V.jpg" width="280" height="180" border="0" />-->
+    <img src="" th:attr="src=@{/img/ball.jpg}" width="200" height="140" class="img-rounded">
+<!--        <div class="container bg-light">   &lt;!&ndash;固定幅指定&ndash;&gt;-->
+            <h1 align="center">選手登録</h1>
+            <form method="post" th:action="@{/inputPlayer}">
+                <table align="center">
+                    <thead>
+                    <tr>
+                        <th>チーム名</th>
+                        <th>背番号</th>
+                        <th>選手名</th>
+                        <th>ポジション</th>
+                    </tr>
+                    </thead>
+                    <td>
+                        <input type="text" name="team" minlength="1" maxlength="30" placeholder="チーム名(30文字まで)" style='font-size:1.3em;'/>
+                    </td>
+                    <td>
+                        <!--            <input pattern="^[0-9A-Za-z]+$" type="text" name="num" placeholder="背番号" />-->
+                        <!--            <input type="tel" name="num" placeholder="背番号" maxlength="3" />-->
+                        <!--            <input type="number"  name="num" placeholder="背番号" pattern="^¥d+$" oninput="sliceMaxLength(this, 3)"&gt/>-->
+                        <input type="number" name="num" min="0"
+                               oninput="if(value.length>3 && value>=0)value=value.slice(0,3)" placeholder="背番号(半角3桁まで)"
+                               style='font-size:1.3em;'required/>
+                    </td>
+                    <td>
+                        <input type="text" name="name" minlength="1" maxlength="30" pattern=".*\S+.*" placeholder="名前(30文字まで)" title="文字を入力してください" style='font-size:1.3em;' required/>
+                    </td>
+                    <td>
+                        <select name="position" style='font-size:1.3em;'>
+                            <option name="pitcher" value="投手">投手</option>
+                            <option name="catcher" value="捕手">捕手</option>
+                            <option name="first-baseman" value="一塁手">一塁手</option>
+                            <option name="second-baseman" value="二塁手">二塁手</option>
+                            <option name="third-baseman" value="三塁手">三塁手</option>
+                            <option name="short-stop" value="遊撃手">遊撃手</option>
+                            <option name="left-fielder" value="左翼手">左翼手</option>
+                            <option name="center-fielder" value="中堅手">中堅手</option>
+                            <option name="right-fielder" value="右翼手">右翼手</option>
+                            <option name="designated-hitter" value="指名打者">指名打者</option>
+                        </select>
+                    </td>
+                    <td>
+                        <button type="submit" class="btn btn-primary btn-lg">登録</button>
+                    </td>
+                </table>
+<!--                <button type="submit" class="btn btn-primary btn-lg" align="center">登録</button>-->
+            </form>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+                    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+                    crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+                    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+                    crossorigin="anonymous"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+                    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+                    crossorigin="anonymous"></script>
 </div>
+</div>
+            </body>
+<!--        </div>-->
 </html>

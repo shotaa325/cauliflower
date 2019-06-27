@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -120,7 +122,7 @@ public class MainController {
     @PostMapping("/form")
     public String Post(String matchDate, int playerId, String one, String two, String three, String four,
                        String five, String six, String runBattedIn, RedirectAttributes attr) {
-        System.out.println("test1");
+        System.out.println("打席結果登録");
 
         String[] plateAppearance = {one, two, three, four, five, six};
         for (int i = 0; i < plateAppearance.length; i++) {
@@ -137,14 +139,33 @@ public class MainController {
                         "VALUES(?, ?, ?);", matchDate, playerId, runBattedIn);
 
 
-        System.out.println("player-list遷移テスト");
+        //選手一覧画面へ遷移
         return "redirect:/player-list";
     }
 
     @GetMapping("/player-list")
     public String playerList(Model model) {
         List<Map<String, Object>> playerList = jdbc.queryForList("select * from player");
-        System.out.println("test2");
+
+//        playerList.add(new HashMap<>());
+
+        System.out.println("選手一覧画面");
+
+//        List<Map<String, Object>> players = List.copyOf(playerList);
+//
+//        for (Map<String, Object> player : playerList) {
+//            player.put("link", player.get("foo").toString() + player.get("bar").toString());
+//        }
+//
+//        playerList.forEach(player -> {
+//            player.put("link", player.get("foo"));
+//
+//            // do something.
+//        });
+//
+//        System.out.println("foo");
+//        String foo = "foo";
+//        "foo" + "bar"
 
         for (int i = 0; i < playerList.size(); i++) {
             int playerId = Integer.parseInt(playerList.get(i).get("id").toString());
@@ -169,7 +190,7 @@ public class MainController {
             //打率計算
             double battingAverage = hit / atBat;
             //出塁率計算
-            double onBasePercentage = (hit + baseOnBall + hitByPitch) / (atBat + baseOnBall + hitByPitch);
+            double onBasePercentage = (hit + baseOnBall + hitByPitch) / (atBat + baseOnBall + hitByPitch + sacrificeFly);
             //塁打数
             double totalBases = (hit * 1) + (doubleHit * 1) + (tripleHit * 2) + (homeRun * 3);
             //長打率計算
@@ -178,8 +199,10 @@ public class MainController {
             double onBasePercentagePlusSlugging = onBasePercentage + sluggingPercentage;
 
             playerList.get(i).put("link", "input-batter/" + playerList.get(i).get("name") + "/" + playerList.get(i).get("id"));
+
+
             playerList.get(i).put("countGame", countGame);
-            if (true == Double.isNaN(battingAverage)) {
+            if (Double.isNaN(battingAverage)) {
                 playerList.get(i).put("battingAverage", null);
             } else {
                 playerList.get(i).put("battingAverage", battingAverage);
@@ -191,12 +214,12 @@ public class MainController {
             }
             playerList.get(i).put("runBattedIn", jdbc.queryForMap("SELECT sum(run_batted_in) AS run_batted_in FROM result WHERE player_id = ?;", playerId).get("run_batted_in"));
 //            if(onBasePercentagePlusSlugging >= 1) {
-            if (true == Double.isNaN(onBasePercentagePlusSlugging)) {
+            if (Double.isNaN(onBasePercentagePlusSlugging)) {
                 playerList.get(i).put("onBasePercentagePlusSlugging2", null);
                 playerList.get(i).put("onBasePercentagePlusSlugging", null);
                 playerList.get(i).put("nanJudge", null);
             } else if (onBasePercentagePlusSlugging >= 1) {
-                System.out.println("puttest");
+//                System.out.println("puttest");
                 playerList.get(i).put("nanJudge", "ok");
                 playerList.get(i).put("onBasePercentagePlusSlugging2", null);
                 playerList.get(i).put("onBasePercentagePlusSlugging", onBasePercentagePlusSlugging);
@@ -207,10 +230,10 @@ public class MainController {
             }
 
 
-            System.out.println("打率" + battingAverage);
-            System.out.println("本塁打" + homeRun);
+//            System.out.println("打率" + battingAverage);
+//            System.out.println("本塁打" + homeRun);
         }
-        System.out.println(playerList);
+//        System.out.println(playerList);
         model.addAttribute("playerList", playerList);
         return "player-list";
     }
@@ -236,8 +259,8 @@ public class MainController {
 
     @GetMapping("/delete")
     public String playerListDelete(Model model, int[] check) {
-        System.out.println("test2");
-        System.out.println(check[0]);
+        System.out.println("チェックされた選手を削除");
+//        System.out.println(check[0]);
         for (int i = 0; i < check.length; i++) {
             jdbc.update("DELETE FROM player WHERE id =?; ", check[i]);
         }
@@ -266,7 +289,7 @@ public class MainController {
             //打率計算
             double battingAverage = hit / atBat;
             //出塁率計算
-            double onBasePercentage = (hit + baseOnBall + hitByPitch) / (atBat + baseOnBall + hitByPitch);
+            double onBasePercentage = (hit + baseOnBall + hitByPitch) / (atBat + baseOnBall + hitByPitch + sacrificeFly);
             //塁打数
             double totalBases = (hit * 1) + (doubleHit * 1) + (tripleHit * 2) + (homeRun * 3);
             //長打率計算
@@ -276,7 +299,7 @@ public class MainController {
             Double onBasePercentagePlusSlugging2 = null;
             playerList.get(i).put("link", "input-batter/" + playerList.get(i).get("name") + "/" + playerList.get(i).get("id"));
             playerList.get(i).put("countGame", countGame);
-            if (true == Double.isNaN(battingAverage)) {
+            if (Double.isNaN(battingAverage)) {
                 playerList.get(i).put("battingAverage", null);
             } else {
                 playerList.get(i).put("battingAverage", battingAverage);
@@ -289,7 +312,7 @@ public class MainController {
             playerList.get(i).put("runBattedIn", jdbc.queryForMap("SELECT sum(run_batted_in) AS run_batted_in FROM result WHERE player_id = ?;", playerId).get("run_batted_in"));
 //            if(onBasePercentagePlusSlugging >= 1) {
 //            playerList.get(i).put("onBasePercentagePlusSlugging", onBasePercentagePlusSlugging);
-            if (true == Double.isNaN(onBasePercentagePlusSlugging)) {
+            if (Double.isNaN(onBasePercentagePlusSlugging)) {
                 playerList.get(i).put("onBasePercentagePlusSlugging2", null);
                 playerList.get(i).put("onBasePercentagePlusSlugging", null);
                 playerList.get(i).put("nanJudge", null);
@@ -305,10 +328,11 @@ public class MainController {
             }
 
 
-            System.out.println("打率" + battingAverage);
-            System.out.println("本塁打" + homeRun);
+//            System.out.println("打率" + battingAverage);
+//            System.out.println("本塁打" + homeRun);
         }
-        System.out.println(playerList);
+//        System.out.println(playerList);
+        //チェックされた選手を削除し、選手一覧画面を更新
         model.addAttribute("playerList", playerList);
         return "player-list";
     }
